@@ -1,0 +1,33 @@
+name: Release
+
+# Pousser un tag (ex. 1.0.0) construit le zip avec le packager BigWigs et le
+# publie sur CurseForge, Wago et en release GitHub.
+# Secrets du dépôt : CF_API_KEY, WAGO_API_TOKEN (GITHUB_TOKEN est fourni).
+# Identifiants de projet dans le .toc : ## X-Curse-Project-ID et ## X-Wago-ID.
+# Une plateforme sans secret ou sans identifiant est ignorée.
+
+on:
+  push:
+    tags: ["*"]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Une erreur de syntaxe Lua bloque la publication.
+      - name: Syntaxe Lua
+        run: |
+          sudo apt-get update && sudo apt-get install -y lua5.1
+          luac5.1 -p Locales.lua QuietBan.lua
+
+      - uses: BigWigsMods/packager@v2

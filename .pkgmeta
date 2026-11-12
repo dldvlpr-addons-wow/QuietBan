@@ -1,0 +1,10 @@
+package-as: QuietBan
+
+ignore:
+  - "*.zip"
+  - DESCRIPTION.md
+  - IconCurseForge.png
+
+manual-changelog:
+  filename: CHANGELOG.md
+  markup-type: markdown

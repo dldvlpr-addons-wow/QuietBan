@@ -1,0 +1,18 @@
+# Publication : archives et sortie du packager BigWigs lancé en local.
+*.zip
+.release/
+
+# Sortie de luac.
+luac.out
+
+# Outils locaux : Claude Code, index CodeGraph, éditeurs.
+.claude/
+.mcp.json
+.codegraph/
+.idea/
+.vscode/
+.luarc.json
+
+# Système.
+.DS_Store
+Thumbs.db
