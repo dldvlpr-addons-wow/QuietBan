@@ -1,6 +1,6 @@
 -- Locales.lua : texts shown to the player, one table per client language.
 -- Loaded before QuietBan.lua. A key missing from a language falls back to enUS.
--- Slash command words (ban, unban, list) stay in English in every language.
+-- Slash command words (ban, unban, list, quiet and its options) stay in English in every language.
 local _, NS = ...
 
 local translations = {}
@@ -18,6 +18,18 @@ translations.enUS = {
     MENU_BAN_PLAYER = "Ban player",
     IGNORE_IMPORTED = "Players imported from the Blizzard ignore list: %d.",
     TITLE_BANS = "QuietBan - Bans",
+    HELP_QUIET = "/qb quiet [on||off]  - quiet mode: decline requests from everyone",
+    HELP_QUIET_KIND = "/qb quiet party||guild||channel||trade||duel  - choose what quiet mode declines",
+    QUIET_ON = "Quiet mode on. Declined from everyone: %s.",
+    QUIET_OFF = "Quiet mode off.",
+    QUIET_NONE = "nothing",
+    QUIET_KIND_ON = "Quiet mode declines: %s.",
+    QUIET_KIND_OFF = "Quiet mode allows: %s.",
+    QUIET_PARTY = "group invites",
+    QUIET_GUILD = "guild invites",
+    QUIET_CHANNEL = "channel invites",
+    QUIET_TRADE = "trades",
+    QUIET_DUEL = "duels",
 }
 
 translations.frFR = {
@@ -33,6 +45,18 @@ translations.frFR = {
     MENU_BAN_PLAYER = "Bannir le joueur",
     IGNORE_IMPORTED = "Joueurs importés depuis la liste d'ignorés Blizzard : %d.",
     TITLE_BANS = "QuietBan - Bannis",
+    HELP_QUIET = "/qb quiet [on||off]  - mode quiet : refuser les demandes de tout le monde",
+    HELP_QUIET_KIND = "/qb quiet party||guild||channel||trade||duel  - choisir ce que le mode quiet refuse",
+    QUIET_ON = "Mode quiet activé. Refusé pour tout le monde : %s.",
+    QUIET_OFF = "Mode quiet désactivé.",
+    QUIET_NONE = "rien",
+    QUIET_KIND_ON = "Le mode quiet refuse : %s.",
+    QUIET_KIND_OFF = "Le mode quiet autorise : %s.",
+    QUIET_PARTY = "invitations de groupe",
+    QUIET_GUILD = "invitations de guilde",
+    QUIET_CHANNEL = "invitations de canal",
+    QUIET_TRADE = "échanges",
+    QUIET_DUEL = "duels",
 }
 
 translations.deDE = {
@@ -48,6 +72,18 @@ translations.deDE = {
     MENU_BAN_PLAYER = "Spieler bannen",
     IGNORE_IMPORTED = "Aus der Blizzard-Ignorierliste importierte Spieler: %d.",
     TITLE_BANS = "QuietBan - Banns",
+    HELP_QUIET = "/qb quiet [on||off]  - Ruhemodus: Anfragen von allen ablehnen",
+    HELP_QUIET_KIND = "/qb quiet party||guild||channel||trade||duel  - wählen, was der Ruhemodus ablehnt",
+    QUIET_ON = "Ruhemodus an. Von allen abgelehnt: %s.",
+    QUIET_OFF = "Ruhemodus aus.",
+    QUIET_NONE = "nichts",
+    QUIET_KIND_ON = "Der Ruhemodus lehnt ab: %s.",
+    QUIET_KIND_OFF = "Der Ruhemodus erlaubt: %s.",
+    QUIET_PARTY = "Gruppeneinladungen",
+    QUIET_GUILD = "Gildeneinladungen",
+    QUIET_CHANNEL = "Channeleinladungen",
+    QUIET_TRADE = "Handel",
+    QUIET_DUEL = "Duelle",
 }
 
 translations.esES = {
@@ -63,6 +99,18 @@ translations.esES = {
     MENU_BAN_PLAYER = "Banear jugador",
     IGNORE_IMPORTED = "Jugadores importados de la lista de ignorados de Blizzard: %d.",
     TITLE_BANS = "QuietBan - Baneos",
+    HELP_QUIET = "/qb quiet [on||off]  - modo silencio: rechazar las solicitudes de todos",
+    HELP_QUIET_KIND = "/qb quiet party||guild||channel||trade||duel  - elegir qué rechaza el modo silencio",
+    QUIET_ON = "Modo silencio activado. Rechazado para todos: %s.",
+    QUIET_OFF = "Modo silencio desactivado.",
+    QUIET_NONE = "nada",
+    QUIET_KIND_ON = "El modo silencio rechaza: %s.",
+    QUIET_KIND_OFF = "El modo silencio permite: %s.",
+    QUIET_PARTY = "invitaciones de grupo",
+    QUIET_GUILD = "invitaciones de hermandad",
+    QUIET_CHANNEL = "invitaciones de canal",
+    QUIET_TRADE = "comercios",
+    QUIET_DUEL = "duelos",
 }
 translations.esMX = translations.esES
 
@@ -79,6 +127,18 @@ translations.itIT = {
     MENU_BAN_PLAYER = "Banna giocatore",
     IGNORE_IMPORTED = "Giocatori importati dalla lista ignorati di Blizzard: %d.",
     TITLE_BANS = "QuietBan - Ban",
+    HELP_QUIET = "/qb quiet [on||off]  - modalità silenziosa: rifiuta le richieste di tutti",
+    HELP_QUIET_KIND = "/qb quiet party||guild||channel||trade||duel  - scegli cosa rifiuta la modalità silenziosa",
+    QUIET_ON = "Modalità silenziosa attiva. Rifiutato per tutti: %s.",
+    QUIET_OFF = "Modalità silenziosa disattivata.",
+    QUIET_NONE = "niente",
+    QUIET_KIND_ON = "La modalità silenziosa rifiuta: %s.",
+    QUIET_KIND_OFF = "La modalità silenziosa consente: %s.",
+    QUIET_PARTY = "inviti di gruppo",
+    QUIET_GUILD = "inviti di gilda",
+    QUIET_CHANNEL = "inviti di canale",
+    QUIET_TRADE = "scambi",
+    QUIET_DUEL = "duelli",
 }
 
 translations.ptBR = {
@@ -94,6 +154,18 @@ translations.ptBR = {
     MENU_BAN_PLAYER = "Banir jogador",
     IGNORE_IMPORTED = "Jogadores importados da lista de ignorados da Blizzard: %d.",
     TITLE_BANS = "QuietBan - Banidos",
+    HELP_QUIET = "/qb quiet [on||off]  - modo silencioso: recusar pedidos de todos",
+    HELP_QUIET_KIND = "/qb quiet party||guild||channel||trade||duel  - escolher o que o modo silencioso recusa",
+    QUIET_ON = "Modo silencioso ativado. Recusado para todos: %s.",
+    QUIET_OFF = "Modo silencioso desativado.",
+    QUIET_NONE = "nada",
+    QUIET_KIND_ON = "O modo silencioso recusa: %s.",
+    QUIET_KIND_OFF = "O modo silencioso permite: %s.",
+    QUIET_PARTY = "convites de grupo",
+    QUIET_GUILD = "convites de guilda",
+    QUIET_CHANNEL = "convites de canal",
+    QUIET_TRADE = "trocas",
+    QUIET_DUEL = "duelos",
 }
 
 translations.ruRU = {
@@ -109,6 +181,18 @@ translations.ruRU = {
     MENU_BAN_PLAYER = "Забанить игрока",
     IGNORE_IMPORTED = "Импортировано игроков из списка игнорирования Blizzard: %d.",
     TITLE_BANS = "QuietBan - Баны",
+    HELP_QUIET = "/qb quiet [on||off]  - тихий режим: отклонять запросы от всех",
+    HELP_QUIET_KIND = "/qb quiet party||guild||channel||trade||duel  - выбрать, что отклоняет тихий режим",
+    QUIET_ON = "Тихий режим включён. Отклоняется от всех: %s.",
+    QUIET_OFF = "Тихий режим выключен.",
+    QUIET_NONE = "ничего",
+    QUIET_KIND_ON = "Тихий режим отклоняет: %s.",
+    QUIET_KIND_OFF = "Тихий режим разрешает: %s.",
+    QUIET_PARTY = "приглашения в группу",
+    QUIET_GUILD = "приглашения в гильдию",
+    QUIET_CHANNEL = "приглашения в канал",
+    QUIET_TRADE = "обмены",
+    QUIET_DUEL = "дуэли",
 }
 
 translations.koKR = {
@@ -124,6 +208,18 @@ translations.koKR = {
     MENU_BAN_PLAYER = "플레이어 차단",
     IGNORE_IMPORTED = "Blizzard 차단 목록에서 플레이어 %d명을 가져왔습니다.",
     TITLE_BANS = "QuietBan - 차단 목록",
+    HELP_QUIET = "/qb quiet [on||off]  - 조용한 모드: 모든 사람의 요청 거절",
+    HELP_QUIET_KIND = "/qb quiet party||guild||channel||trade||duel  - 조용한 모드가 거절할 항목 선택",
+    QUIET_ON = "조용한 모드 켜짐. 모두에게서 거절: %s.",
+    QUIET_OFF = "조용한 모드 꺼짐.",
+    QUIET_NONE = "없음",
+    QUIET_KIND_ON = "조용한 모드가 거절함: %s.",
+    QUIET_KIND_OFF = "조용한 모드가 허용함: %s.",
+    QUIET_PARTY = "파티 초대",
+    QUIET_GUILD = "길드 초대",
+    QUIET_CHANNEL = "채널 초대",
+    QUIET_TRADE = "거래",
+    QUIET_DUEL = "결투",
 }
 
 translations.zhCN = {
@@ -139,6 +235,18 @@ translations.zhCN = {
     MENU_BAN_PLAYER = "屏蔽玩家",
     IGNORE_IMPORTED = "已从暴雪屏蔽列表导入 %d 名玩家。",
     TITLE_BANS = "QuietBan - 屏蔽列表",
+    HELP_QUIET = "/qb quiet [on||off]  - 安静模式：拒绝所有人的请求",
+    HELP_QUIET_KIND = "/qb quiet party||guild||channel||trade||duel  - 选择安静模式拒绝的内容",
+    QUIET_ON = "安静模式已开启。拒绝所有人的：%s。",
+    QUIET_OFF = "安静模式已关闭。",
+    QUIET_NONE = "无",
+    QUIET_KIND_ON = "安静模式拒绝：%s。",
+    QUIET_KIND_OFF = "安静模式允许：%s。",
+    QUIET_PARTY = "队伍邀请",
+    QUIET_GUILD = "公会邀请",
+    QUIET_CHANNEL = "频道邀请",
+    QUIET_TRADE = "交易",
+    QUIET_DUEL = "决斗",
 }
 
 translations.zhTW = {
@@ -154,6 +262,18 @@ translations.zhTW = {
     MENU_BAN_PLAYER = "封鎖玩家",
     IGNORE_IMPORTED = "已從暴雪忽略名單匯入 %d 名玩家。",
     TITLE_BANS = "QuietBan - 封鎖清單",
+    HELP_QUIET = "/qb quiet [on||off]  - 安靜模式：拒絕所有人的請求",
+    HELP_QUIET_KIND = "/qb quiet party||guild||channel||trade||duel  - 選擇安靜模式拒絕的內容",
+    QUIET_ON = "安靜模式已開啟。拒絕所有人的：%s。",
+    QUIET_OFF = "安靜模式已關閉。",
+    QUIET_NONE = "無",
+    QUIET_KIND_ON = "安靜模式拒絕：%s。",
+    QUIET_KIND_OFF = "安靜模式允許：%s。",
+    QUIET_PARTY = "隊伍邀請",
+    QUIET_GUILD = "公會邀請",
+    QUIET_CHANNEL = "頻道邀請",
+    QUIET_TRADE = "交易",
+    QUIET_DUEL = "決鬥",
 }
 
 local own = translations[GetLocale and GetLocale() or "enUS"]

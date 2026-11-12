@@ -1,6 +1,6 @@
 <h1 style="text-align: center;"><span style="color: #0cf;">Quiet</span><span style="color: #ff4040;">Ban</span></h1>
 
-<p style="text-align: center;"><strong>Ban a player: their chat disappears, and their invites, trades and duels are declined without a popup or a sound.</strong></p>
+<p style="text-align: center;"><strong>Ban a player: their chat disappears, and their invites, trades and duels are declined without a popup or a sound. Quiet mode declines them from everyone.</strong></p>
 
 <p style="text-align: center;"><a href="https://discord.gg/EyYpyMq2km">Discord</a> · <a href="https://github.com/dldvlpr-addons-wow/QuietBan/issues">Report a bug</a> · <a href="https://github.com/dldvlpr-addons-wow/QuietBan">Source</a></p>
 
@@ -23,6 +23,14 @@ The Blizzard ignore list fills up fast. QuietBan keeps its own list, with no lim
 - <span style="color: #ffd100;"><strong>Unlimited list,</strong></span> saved for your whole account.
 - <span style="color: #ffd100;"><strong>11 languages:</strong></span> enUS, frFR, deDE, esES, esMX, itIT, ptBR, ruRU, koKR, zhCN, zhTW.
 
+## <span style="color: #0cf;">Quiet mode</span>
+
+Want no requests at all? Type <span style="color: #ffd100;"><strong>/qb quiet</strong></span>. Group, guild and channel invites, trades and duels are then declined from everyone, without a popup or a sound. Type it again to turn it off.
+
+- <span style="color: #ffd100;"><strong>Your choice:</strong></span> keep what you want. `/qb quiet trade` allows trades again, type it once more to decline them. Same for `party`, `guild`, `channel` and `duel`.
+- <span style="color: #ffd100;"><strong>Off by default,</strong></span> saved for your whole account.
+- Trades you start yourself are never declined.
+
 ## <span style="color: #0cf;">Commands</span>
 
 | Command | Effect |
@@ -30,6 +38,8 @@ The Blizzard ignore list fills up fast. QuietBan keeps its own list, with no lim
 | `/qb ban <name>` | Ban a player. No name: your target |
 | `/qb unban <name>` | Remove a ban |
 | `/qb list` | Bans window, with a search box and an Unban button on each line |
+| `/qb quiet` | Quiet mode on or off. `/qb quiet on` and `/qb quiet off` work too |
+| `/qb quiet <kind>` | Choose what quiet mode declines: `party`, `guild`, `channel`, `trade`, `duel` |
 
 `/quietban` works too.
 

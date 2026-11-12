@@ -1,17 +1,17 @@
 ## Interface: 16001
 ## Title: QuietBan
-## Notes: Ban players: their chat is hidden and their group, guild and channel invites, trades and duels are declined. Unlimited list, no setup.
-## Notes-frFR: Bannit des joueurs : leur chat est masqué, leurs invitations de groupe, de guilde et de canal, échanges et duels sont refusés. Liste illimitée, aucun réglage.
-## Notes-deDE: Bannt Spieler: ihr Chat wird ausgeblendet, ihre Gruppen-, Gilden- und Channeleinladungen, Handel und Duelle werden abgelehnt. Unbegrenzte Liste, keine Einrichtung.
-## Notes-esES: Banea jugadores: su chat se oculta y se rechazan sus invitaciones de grupo, hermandad y canal, comercios y duelos. Lista ilimitada, sin configuración.
-## Notes-esMX: Banea jugadores: su chat se oculta y se rechazan sus invitaciones de grupo, hermandad y canal, comercios y duelos. Lista ilimitada, sin configuración.
-## Notes-itIT: Banna giocatori: la loro chat viene nascosta e i loro inviti di gruppo, gilda e canale, scambi e duelli vengono rifiutati. Lista illimitata, nessuna configurazione.
-## Notes-ptBR: Bane jogadores: o chat deles fica oculto e seus convites de grupo, guilda e canal, trocas e duelos são recusados. Lista ilimitada, sem configuração.
-## Notes-ruRU: Банит игроков: их чат скрыт, их приглашения в группу, гильдию и канал, обмены и дуэли отклоняются. Список без ограничений, без настройки.
-## Notes-koKR: 플레이어를 차단합니다. 대화가 숨겨지고 파티, 길드, 채널 초대와 거래, 결투가 거절됩니다. 목록 무제한, 설정 불필요.
-## Notes-zhCN: 屏蔽玩家：隐藏其聊天，并拒绝其队伍、公会和频道邀请、交易与决斗。列表无上限，无需设置。
-## Notes-zhTW: 封鎖玩家：隱藏其聊天，並拒絕其隊伍、公會和頻道邀請、交易與決鬥。清單無上限，無需設定。
-## Version: 1.0.0
+## Notes: Ban players: their chat is hidden and their group, guild and channel invites, trades and duels are declined. Quiet mode declines them from everyone. Unlimited list, no setup.
+## Notes-frFR: Bannit des joueurs : leur chat est masqué, leurs invitations de groupe, de guilde et de canal, échanges et duels sont refusés. Le mode quiet les refuse pour tout le monde. Liste illimitée, aucun réglage.
+## Notes-deDE: Bannt Spieler: ihr Chat wird ausgeblendet, ihre Gruppen-, Gilden- und Channeleinladungen, Handel und Duelle werden abgelehnt. Der Ruhemodus lehnt sie von allen ab. Unbegrenzte Liste, keine Einrichtung.
+## Notes-esES: Banea jugadores: su chat se oculta y se rechazan sus invitaciones de grupo, hermandad y canal, comercios y duelos. El modo silencio los rechaza para todos. Lista ilimitada, sin configuración.
+## Notes-esMX: Banea jugadores: su chat se oculta y se rechazan sus invitaciones de grupo, hermandad y canal, comercios y duelos. El modo silencio los rechaza para todos. Lista ilimitada, sin configuración.
+## Notes-itIT: Banna giocatori: la loro chat viene nascosta e i loro inviti di gruppo, gilda e canale, scambi e duelli vengono rifiutati. La modalità silenziosa li rifiuta per tutti. Lista illimitata, nessuna configurazione.
+## Notes-ptBR: Bane jogadores: o chat deles fica oculto e seus convites de grupo, guilda e canal, trocas e duelos são recusados. O modo silencioso os recusa para todos. Lista ilimitada, sem configuração.
+## Notes-ruRU: Банит игроков: их чат скрыт, их приглашения в группу, гильдию и канал, обмены и дуэли отклоняются. Тихий режим отклоняет их от всех. Список без ограничений, без настройки.
+## Notes-koKR: 플레이어를 차단합니다. 대화가 숨겨지고 파티, 길드, 채널 초대와 거래, 결투가 거절됩니다. 조용한 모드는 모든 사람의 요청을 거절합니다. 목록 무제한, 설정 불필요.
+## Notes-zhCN: 屏蔽玩家：隐藏其聊天，并拒绝其队伍、公会和频道邀请、交易与决斗。安静模式拒绝所有人的请求。列表无上限，无需设置。
+## Notes-zhTW: 封鎖玩家：隱藏其聊天，並拒絕其隊伍、公會和頻道邀請、交易與決鬥。安靜模式拒絕所有人的請求。清單無上限，無需設定。
+## Version: 1.1.0
 ## X-License: GPL-3.0-or-later
 ## X-Curse-Project-ID: 1792780
 ## SavedVariables: QuietBanDB

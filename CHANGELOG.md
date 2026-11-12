@@ -1,5 +1,12 @@
 # QuietBan
 
+## 1.1.0
+
+### Features
+- **Quiet mode**: `/qb quiet` declines group, guild and channel invites, trades and duels from everyone, without a popup or a sound. `/qb quiet on` and `/qb quiet off` work too. Off by default.
+- **Choose what quiet mode declines**: `/qb quiet party`, `guild`, `channel`, `trade` or `duel` turns one kind on or off. Trades you start yourself are never declined.
+- **Channel invite line** hidden in quiet mode.
+
 ## 1.0.0
 
 ### Features

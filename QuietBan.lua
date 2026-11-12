@@ -1,6 +1,7 @@
 -- QuietBan.lua
 -- Banned players: their chat is hidden, their group, guild and channel invites,
 -- trades and duels are declined. Own list, no size limit, Blizzard ignore list untouched.
+-- Quiet mode declines the same requests from everyone.
 local addonName, NS = ...
 local L = NS.L
 
@@ -72,6 +73,13 @@ local function IsBanned(key)
     return key ~= nil and db.players[key] ~= nil
 end
 
+-- Quiet mode: requests of the chosen kinds are declined from everyone, banned or not.
+local QUIET_KINDS = { "party", "guild", "channel", "trade", "duel" }
+
+local function IsQuiet(kind)
+    return db.quiet.enabled and db.quiet[kind]
+end
+
 -- Name and realm of a unit, or first name and surname on WoW Forever: Blizzard reads the
 -- surname with UnitNameUnmodified, UnitFullName is not proven to return it.
 local function UnitNames(unit)
@@ -102,6 +110,7 @@ local SYSTEM_HIDE_SECONDS = 3
 local recentlyBlocked = {}   -- short name in lower case -> GetTime() expiry
 
 local function NoteBlocked(key)
+    if not key then return end   -- quiet mode can decline a sender whose name is hidden
     recentlyBlocked[key:match("^[^-]+")] = GetTime() + SYSTEM_HIDE_SECONDS
 end
 
@@ -132,21 +141,22 @@ end
 -- the sound and shows the popup first. QuietBan takes these events over at load, declines
 -- a banned sender silently and hands anyone else back to Blizzard's handler.
 -- nameIndex: payload position of the sender. popup: dialog closed when the takeover is unavailable.
+-- kind: the quiet mode setting that declines this request from everyone.
 local REQUESTS = {
     PARTY_INVITE_REQUEST = { handler = "HandlePartyInviteRequest", nameIndex = 1, popup = "PARTY_INVITE",
-        decline = function() DeclineGroup() end },
+        kind = "party", decline = function() DeclineGroup() end },
     TRADE_REQUEST = { handler = "HandleTradeRequest", nameIndex = 1, popup = "TRADE",
-        decline = function() CancelTrade() end },   -- hiding the popup alone would leave the request open
+        kind = "trade", decline = function() CancelTrade() end },   -- hiding the popup alone would leave the request open
     DUEL_REQUESTED = { handler = "HandleDuelRequested", nameIndex = 1, popup = "DUEL_REQUESTED",
-        decline = function() CancelDuel() end },
+        kind = "duel", decline = function() CancelDuel() end },
     DUEL_TO_THE_DEATH_REQUESTED = { handler = "HandleDuelToTheDeathRequested", nameIndex = 1,
-        popup = "DUEL_TO_THE_DEATH_REQUESTED", decline = function() CancelDuel() end },
+        popup = "DUEL_TO_THE_DEATH_REQUESTED", kind = "duel", decline = function() CancelDuel() end },
     -- Taken over too, so a banned sender's popup never shows. Known cost: for anyone else
     -- the popup is shown from addon code, its OnAccept runs tainted and writes the chat
     -- frame's channel list. Under chat lockdown, channel lines of that chat frame can then
     -- raise errors and go missing until /reload.
     CHANNEL_INVITE_REQUEST = { handler = "HandleChannelInviteRequest", nameIndex = 2,
-        popup = "CHAT_CHANNEL_INVITE", decline = function(channel) DeclineChannelInvite(channel) end },
+        popup = "CHAT_CHANNEL_INVITE", kind = "channel", decline = function(channel) DeclineChannelInvite(channel) end },
 }
 local ownedRequests = {}   -- event -> true when QuietBan routes it instead of Blizzard_Game
 
@@ -163,7 +173,7 @@ end
 local function OnRequest(event, ...)
     local request = REQUESTS[event]
     local key = NormalizeName((select(request.nameIndex, ...)))
-    if not IsBanned(key) then
+    if not IsBanned(key) and not IsQuiet(request.kind) then
         -- Not banned: hand the request back to Blizzard (popup, sound, icon flash).
         if ownedRequests[event] then GameEvent[request.handler](nil, event, ...) end
         return
@@ -191,7 +201,7 @@ end
 
 local function OnGuildInvite(inviter, ...)
     local key = NormalizeName(inviter)
-    if not IsBanned(key) then
+    if not IsBanned(key) and not IsQuiet("guild") then
         if ownsGuildInvite then
             GuildInviteFrame_OnEvent(GuildInviteFrame, "GUILD_INVITE_REQUEST", inviter, ...)
         end
@@ -369,6 +379,25 @@ local function Help()
     Print(L.HELP_BAN)
     Print(L.HELP_UNBAN)
     Print(L.HELP_LIST)
+    Print(L.HELP_QUIET)
+    Print(L.HELP_QUIET_KIND)
+end
+
+-- "/qb quiet [on|off]" turns quiet mode on or off, "/qb quiet <kind>" adds or removes one kind.
+local function OnQuiet(kind)
+    if kind == "" or kind == "on" or kind == "off" then
+        if kind == "" then db.quiet.enabled = not db.quiet.enabled else db.quiet.enabled = kind == "on" end
+        if not db.quiet.enabled then return Print(L.QUIET_OFF) end
+        local declined = {}
+        for _, name in ipairs(QUIET_KINDS) do
+            if db.quiet[name] then declined[#declined + 1] = L["QUIET_" .. name:upper()] end
+        end
+        return Print(L.QUIET_ON:format(#declined > 0 and table.concat(declined, ", ") or L.QUIET_NONE))
+    end
+    if kind == "enabled" or db.quiet[kind] == nil then return Print(L.HELP_QUIET_KIND) end
+    db.quiet[kind] = not db.quiet[kind]
+    Print((db.quiet[kind] and L.QUIET_KIND_ON or L.QUIET_KIND_OFF):format(L["QUIET_" .. kind:upper()]))
+    if not db.quiet.enabled then Print(L.QUIET_OFF) end   -- the choice applies once the mode is on
 end
 
 local function OnSlash(input)
@@ -393,6 +422,8 @@ local function OnSlash(input)
         end
     elseif command == "list" then
         ShowList()
+    elseif command == "quiet" then
+        OnQuiet(arg:lower())
     else
         Help()
     end
@@ -410,6 +441,10 @@ frame:SetScript("OnEvent", function(self, event, ...)
         db = QuietBanDB
         db.version = db.version or 1
         db.players = db.players or {}
+        db.quiet = db.quiet or { enabled = false }
+        for _, kind in ipairs(QUIET_KINDS) do
+            if db.quiet[kind] == nil then db.quiet[kind] = true end
+        end
         db.guilds, db.guildOf = nil, nil   -- guild bans were removed: drop their saved data
         if db.version < 2 then
             -- Keys saved before Lower() kept accented and Cyrillic capitals: fold them.
@@ -431,7 +466,10 @@ frame:SetScript("OnEvent", function(self, event, ...)
         for _, chatEvent in ipairs(CHAT_EVENTS) do addFilter(chatEvent, ChatFilter) end
         addFilter("CHAT_MSG_SYSTEM", SystemFilter)
         -- "X invites you to channel Y".
-        addFilter("CHAT_MSG_CHANNEL_NOTICE_USER", function(_, _, _, name) return IsBanned(NormalizeName(name)) end)
+        -- Blizzard prints the invite line when notice is "INVITE" (ChatFrameOverrides.lua).
+    addFilter("CHAT_MSG_CHANNEL_NOTICE_USER", function(_, _, notice, name)
+        return IsBanned(NormalizeName(name)) or (notice == "INVITE" and IsQuiet("channel"))
+    end)
 
         for _, name in ipairs({ "TRADE_SHOW", "GUILD_INVITE_REQUEST", "PLAYER_REGEN_DISABLED" }) do
             self:RegisterEvent(name)
